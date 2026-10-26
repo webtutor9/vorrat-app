@@ -1,0 +1,137 @@
+import type { PantryData, Product, Settings } from './types'
+
+/**
+ * Startkatalog aus den Etikett-Fotos (Okt. 2026).
+ * estimated = Nährwerttabelle auf dem Foto nicht (vollständig) lesbar → typische Werte, bitte bei Gelegenheit prüfen.
+ */
+export const SEED_PRODUCTS: Product[] = [
+  {
+    id: 'fusilli-eierteigwaren-500',
+    name: 'Fusilli (Eierteigwaren)',
+    brand: 'Migros',
+    category: 'Teigwaren & Getreide',
+    unit: 'g',
+    netAmount: 500,
+    per100: { kcal: 365, protein: 15, fat: 2.8, carbs: 68 },
+    ean: '7613312314746',
+  },
+  {
+    id: 'roggen-vollkornbrot-dose-250',
+    name: 'Roggen-Vollkornbrot in der Dose',
+    brand: "Modersohn's",
+    category: 'Brot & Backwaren',
+    unit: 'g',
+    netAmount: 250,
+    per100: { kcal: 180, protein: 5.2, fat: 1.2, carbs: 32.3 },
+    ean: '4002787072214',
+  },
+  {
+    id: 'erbsen-karotten-dose',
+    name: 'Erbsen & Karotten',
+    brand: 'Migros',
+    category: 'Konserven Gemüse & Hülsenfrüchte',
+    unit: 'g',
+    netAmount: 260,
+    edibleAmount: 260,
+    per100: { kcal: 64, protein: 3.5, fat: 0.5, carbs: 9.3 },
+    ean: '7613269197447',
+    note: 'Nährwerte abgetropft; 1 Dose = 260 g abgetropft (2 × 130 g)',
+  },
+  {
+    id: 'rote-bohnen-dose-435',
+    name: 'Rote Bohnen (Kidney)',
+    brand: 'Migros',
+    category: 'Konserven Gemüse & Hülsenfrüchte',
+    unit: 'g',
+    netAmount: 435,
+    edibleAmount: 310,
+    per100: { kcal: 105, protein: 7.5, fat: 0.5, carbs: 14 },
+    estimated: true,
+    note: 'Nährwerttabelle auf dem Foto verdeckt – typische Werte für abgetropfte Kidneybohnen',
+  },
+  {
+    id: 'maiskoerner-dose-340',
+    name: 'Maiskörner süss',
+    brand: 'Gottfried Hirtz',
+    category: 'Konserven Gemüse & Hülsenfrüchte',
+    unit: 'g',
+    netAmount: 340,
+    edibleAmount: 285,
+    per100: { kcal: 90, protein: 2.9, fat: 1.2, carbs: 16 },
+    estimated: true,
+    note: 'Foto zu klein zum Lesen – typische Werte für abgetropften Süssmais',
+  },
+  {
+    id: 'thunfisch-salzwasser-200',
+    name: 'Thunfisch in Salzwasser (MSC)',
+    category: 'Konserven Fisch & Fleisch',
+    unit: 'g',
+    netAmount: 200,
+    edibleAmount: 155,
+    per100: { kcal: 105, protein: 24, fat: 0.8, carbs: 0 },
+    estimated: true,
+    note: 'Nährwerttabelle nicht auf dem Foto – typische Werte für Skipjack in Salzwasser, abgetropft',
+  },
+  {
+    id: 'barilla-tomatensauce-400',
+    name: 'Tomatensauce mit Zwiebeln & Kräutern',
+    brand: 'Barilla',
+    category: 'Saucen & Würze',
+    unit: 'g',
+    netAmount: 400,
+    per100: { kcal: 67, protein: 1.4, fat: 3.7, carbs: 6.2 },
+  },
+  {
+    id: 'remoulade-500',
+    name: 'Würzige Remoulade',
+    brand: 'Delikato (Aldi)',
+    category: 'Saucen & Würze',
+    unit: 'ml',
+    netAmount: 500,
+    per100: { kcal: 594, protein: 0.6, fat: 64, carbs: 3.3 },
+    ean: '4061458029759',
+  },
+  {
+    id: 'rapsoel-500',
+    name: 'Rapsöl IP-Suisse',
+    brand: 'Migros',
+    category: 'Öle & Fette',
+    unit: 'ml',
+    netAmount: 500,
+    per100: { kcal: 828, protein: 0, fat: 92, carbs: 0 },
+    ean: '7617027020596',
+  },
+  {
+    id: 'nussmischung-200',
+    name: 'Nussmischung',
+    brand: 'Migros',
+    category: 'Nüsse & Snacks',
+    unit: 'g',
+    netAmount: 200,
+    per100: { kcal: 644, protein: 20, fat: 57, carbs: 8.7 },
+    ean: '7613312339718',
+    note: 'Haselnüsse, Mandeln, Cashew, Walnüsse, Pecan',
+  },
+]
+
+export const DEFAULT_SETTINGS: Settings = {
+  people: [
+    { id: 'mann', name: 'Mann', sex: 'm', age: 49, pal: 1.6 },
+    { id: 'frau', name: 'Frau', sex: 'w', age: 45, pal: 1.6 },
+    { id: 'kind', name: 'Kind', sex: 'm', age: 12, pal: 1.8 },
+  ],
+  warnYellowDays: 60,
+  warnRedDays: 14,
+  waterPerPersonL: 3,
+  countExpired: true,
+}
+
+export function seedData(): PantryData {
+  return {
+    version: 1,
+    products: SEED_PRODUCTS,
+    batches: [],
+    settings: DEFAULT_SETTINGS,
+    updatedAt: new Date().toISOString(),
+  }
+}
