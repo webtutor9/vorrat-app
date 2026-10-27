@@ -5,6 +5,7 @@ export type Category =
   | 'Brot & Backwaren'
   | 'Konserven Gemüse & Hülsenfrüchte'
   | 'Konserven Fisch & Fleisch'
+  | 'Fertiggerichte'
   | 'Saucen & Würze'
   | 'Öle & Fette'
   | 'Nüsse & Snacks'
@@ -16,6 +17,7 @@ export const CATEGORIES: Category[] = [
   'Brot & Backwaren',
   'Konserven Gemüse & Hülsenfrüchte',
   'Konserven Fisch & Fleisch',
+  'Fertiggerichte',
   'Saucen & Würze',
   'Öle & Fette',
   'Nüsse & Snacks',

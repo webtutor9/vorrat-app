@@ -57,9 +57,8 @@ export const SEED_PRODUCTS: Product[] = [
     unit: 'g',
     netAmount: 340,
     edibleAmount: 285,
-    per100: { kcal: 90, protein: 2.9, fat: 1.2, carbs: 16 },
-    estimated: true,
-    note: 'Foto zu klein zum Lesen – typische Werte für abgetropften Süssmais',
+    per100: { kcal: 100, protein: 2.6, fat: 1.5, carbs: 15 },
+    note: 'Werte vom Etikett (rechter Rand teils abgeschnitten)',
   },
   {
     id: 'thunfisch-salzwasser-200',
@@ -112,6 +111,10 @@ export const SEED_PRODUCTS: Product[] = [
     ean: '7613312339718',
     note: 'Haselnüsse, Mandeln, Cashew, Walnüsse, Pecan',
   },
+  {"id": "loewenanteil-kichererbsen-curry-570", "name": "Kichererbsen Curry (Bio)", "brand": "Löwenanteil", "category": "Fertiggerichte", "unit": "g", "netAmount": 570, "per100": {"kcal": 115, "protein": 5.5, "fat": 3.7, "carbs": 13}, "note": "Glas = 653 kcal, 31 g Eiweiss; MHD auf dem Deckelrand"},
+  {"id": "loewenanteil-chili-vegano-570", "name": "Chili Vegano (Bio)", "brand": "Löwenanteil", "category": "Fertiggerichte", "unit": "g", "netAmount": 570, "per100": {"kcal": 101, "protein": 5.8, "fat": 2.5, "carbs": 12}, "note": "Glas = 576 kcal, 33 g Eiweiss, 2 Portionen; MHD auf dem Deckelrand"},
+  {"id": "loewenanteil-berglinseneintopf-570", "name": "Berglinseneintopf (Bio)", "brand": "Löwenanteil", "category": "Fertiggerichte", "unit": "g", "netAmount": 570, "per100": {"kcal": 92, "protein": 5.3, "fat": 1.6, "carbs": 13.6}, "note": "Glas = 527 kcal, 30 g Eiweiss; MHD auf dem Deckelrand"},
+  {"id": "shorley-original-1500", "name": "Shorley Original", "brand": "Möhl", "category": "Getränke & Wasser", "unit": "ml", "netAmount": 1500, "per100": {"kcal": 24, "protein": 0, "fat": 0, "carbs": 5.6}, "waterL": 1.5, "estimated": true, "ean": "7611201010496", "note": "Apfelschorle; Nährwerttabelle auf dem Foto verdeckt – typische Werte; Flaschengrösse 1,5 l angenommen"},
 ]
 
 export const DEFAULT_SETTINGS: Settings = {

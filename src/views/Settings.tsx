@@ -2,6 +2,7 @@ import { useState } from 'react'
 import type { PantryData, Pal, Person, Settings as S, SyncConfig } from '../types'
 import { replaceData, saveSettings, setConfig, syncNow, useStore } from '../store'
 import { testConnection } from '../github'
+import { NumInput } from '../components'
 import { fmtDate, n0, PAL_LABEL, perPackage, personNeed, sortBatches, todayISO, uid } from '../calc'
 
 export function Settings({ data }: { data: PantryData }) {
@@ -32,14 +33,7 @@ function PeopleSettings({ s }: { s: S }) {
                   <option value="w">weiblich</option>
                 </select>
                 <label className="inline">
-                  <input
-                    aria-label="Alter"
-                    type="number"
-                    min={1}
-                    max={110}
-                    value={p.age}
-                    onChange={(e) => upd({ ...p, age: Math.max(1, +e.target.value || 1) })}
-                  />
+                  <NumInput aria-label="Alter" min={1} max={110} value={p.age} onChange={(v) => v && upd({ ...p, age: Math.round(v) })} />
                   J.
                 </label>
               </div>
@@ -52,12 +46,14 @@ function PeopleSettings({ s }: { s: S }) {
                   ))}
                 </select>
                 <label className="inline">
-                  <input
+                  <NumInput
                     aria-label="eigener Kalorienbedarf"
-                    type="number"
                     placeholder="auto"
-                    value={p.kcalOverride ?? ''}
-                    onChange={(e) => upd({ ...p, kcalOverride: +e.target.value || undefined })}
+                    optional
+                    min={500}
+                    max={6000}
+                    value={p.kcalOverride}
+                    onChange={(v) => upd({ ...p, kcalOverride: v })}
                   />
                   kcal
                 </label>
@@ -100,21 +96,15 @@ function WarnSettings({ s }: { s: S }) {
         <div className="three">
           <label>
             Gelb ab (Tage)
-            <input type="number" min={1} value={s.warnYellowDays} onChange={(e) => saveSettings({ ...s, warnYellowDays: Math.max(1, +e.target.value || 1) })} />
+            <NumInput min={1} max={3650} value={s.warnYellowDays} onChange={(v) => v && saveSettings({ ...s, warnYellowDays: Math.round(v) })} />
           </label>
           <label>
             Rot ab (Tage)
-            <input type="number" min={0} value={s.warnRedDays} onChange={(e) => saveSettings({ ...s, warnRedDays: Math.max(0, +e.target.value || 0) })} />
+            <NumInput min={0} max={3650} value={s.warnRedDays} onChange={(v) => v !== undefined && saveSettings({ ...s, warnRedDays: Math.round(v) })} />
           </label>
           <label>
             Wasser l/Person/Tag
-            <input
-              type="number"
-              min={0.5}
-              step={0.5}
-              value={s.waterPerPersonL}
-              onChange={(e) => saveSettings({ ...s, waterPerPersonL: Math.max(0.5, +e.target.value || 3) })}
-            />
+            <NumInput min={0.5} max={20} step={0.5} value={s.waterPerPersonL} onChange={(v) => v && saveSettings({ ...s, waterPerPersonL: v })} />
           </label>
         </div>
         <label className="check">

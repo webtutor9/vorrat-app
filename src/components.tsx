@@ -36,19 +36,53 @@ export function ExpiryTag({ iso, settings }: { iso: string; settings: Settings }
   )
 }
 
+/**
+ * Zahlenfeld, das beim Tippen nicht auf einen Ersatzwert springt:
+ * leer/ungültig wird erst beim Verlassen des Felds auf den letzten gültigen Wert zurückgesetzt.
+ */
+export function NumInput({ value, onChange, min = 0, max = Infinity, step, optional, ...rest }: {
+  value: number | undefined
+  onChange: (v: number | undefined) => void
+  min?: number
+  max?: number
+  step?: number
+  optional?: boolean
+} & Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange' | 'min' | 'max' | 'step'>) {
+  const [text, setText] = useState(value === undefined ? '' : String(value))
+  const [focus, setFocus] = useState(false)
+  const shown = focus ? text : value === undefined ? '' : String(value)
+  const parse = (t: string) => {
+    const v = parseFloat(t.replace(',', '.'))
+    return Number.isFinite(v) && v >= min && v <= max ? v : null
+  }
+  return (
+    <input
+      {...rest}
+      type="text"
+      inputMode={step && step < 1 ? 'decimal' : 'numeric'}
+      value={shown}
+      onFocus={() => {
+        setText(value === undefined ? '' : String(value))
+        setFocus(true)
+      }}
+      onChange={(e) => {
+        setText(e.target.value)
+        const v = parse(e.target.value)
+        if (v !== null) onChange(v)
+        else if (optional && e.target.value.trim() === '') onChange(undefined)
+      }}
+      onBlur={() => setFocus(false)}
+    />
+  )
+}
+
 export function Stepper({ value, onChange, min = 1 }: { value: number; onChange: (v: number) => void; min?: number }) {
   return (
     <div className="stepper">
       <button type="button" className="icon-btn" onClick={() => onChange(Math.max(min, value - 1))} aria-label="weniger">
         −
       </button>
-      <input
-        type="number"
-        inputMode="numeric"
-        min={min}
-        value={value}
-        onChange={(e) => onChange(Math.max(min, Math.round(+e.target.value || min)))}
-      />
+      <NumInput value={value} min={min} onChange={(v) => v !== undefined && onChange(Math.round(v))} aria-label="Anzahl" />
       <button type="button" className="icon-btn" onClick={() => onChange(value + 1)} aria-label="mehr">
         +
       </button>
